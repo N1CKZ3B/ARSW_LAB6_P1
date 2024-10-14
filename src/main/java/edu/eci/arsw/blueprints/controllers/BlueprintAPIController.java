@@ -1,4 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.eci.arsw.blueprints.controllers;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
@@ -10,10 +20,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+/**
+ *
+ * @author hcadavid
+ */
 @RestController
 @RequestMapping(value = "/blueprints")
 public class BlueprintAPIController {
@@ -21,11 +31,18 @@ public class BlueprintAPIController {
     @Autowired
     BlueprintsServices bps;
 
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBlueprints() throws BlueprintNotFoundException {
-        Set<Blueprint> data = bps.getAllBlueprints();
-        return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
+    public ResponseEntity<?> getBlueprints() {
+        try {
+            Set<Blueprint> data = bps.getAllBlueprints();
+            return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
+        } catch (BlueprintNotFoundException ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+        }
     }
+
 
     @RequestMapping(path = "/{author}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBlueprintByAuthor(@PathVariable String author) throws BlueprintNotFoundException {
@@ -37,8 +54,8 @@ public class BlueprintAPIController {
         return new ResponseEntity<>("El autor no existe", HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{author}/{bpname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBlueprintByAuthorAndName(@PathVariable String author, @PathVariable String bpname) throws BlueprintNotFoundException {
+    @RequestMapping(path = "/{author}/{bpname}" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getBlueprintByAuthorAndName(@PathVariable String author,@PathVariable String bpname ) throws BlueprintNotFoundException {
         Blueprint data = bps.getBlueprint(author, bpname);
         if (data != null) {
             return new ResponseEntity<>(data, HttpStatus.ACCEPTED);

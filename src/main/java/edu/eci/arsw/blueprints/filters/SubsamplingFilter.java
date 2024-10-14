@@ -34,5 +34,4 @@ public class SubsamplingFilter implements BlueprintFilter {
         return filteredBlueprints;
     }
 
-
 }

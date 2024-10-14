@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
+public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     private final ConcurrentHashMap<Tuple<String,String>,Blueprint> blueprints=new ConcurrentHashMap<>();
 
@@ -46,41 +46,45 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
         Point[] pts4 = new Point[]{new Point(170, 170), new Point(130, 130)};
         Blueprint bp4 = new Blueprint("richi", "kitchen_remodel", pts4);
         blueprints.put(new Tuple<>(bp4.getAuthor(), bp4.getName()), bp4);
+
     }
 
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
-            throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
-        } else {
-            blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(),bp.getName()))){
+            throw new BlueprintPersistenceException("The given blueprint already exists: "+bp);
+        }
+        else{
+            blueprints.putIfAbsent(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         }
     }
 
-    @Override
+
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
         return blueprints.get(new Tuple<>(author, bprintname));
     }
 
     @Override
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
-        Set<Blueprint> blueprintsAuthor = new HashSet<>();
-        for (Blueprint b : blueprints.values()) {
-            if (b.getAuthor().equals(author)) {
-                blueprintsAuthor.add(b);
+    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
+        Set<Blueprint> authorBlueprints = new HashSet<>();
+        for (Blueprint blueprint : blueprints.values()) {
+            if (blueprint.getAuthor().equals(author)){
+                authorBlueprints.add(blueprint);
             }
         }
-        return blueprintsAuthor;
+        return authorBlueprints;
     }
 
+    /**
+     * @return The blueprints
+     */
     @Override
     public Set<Blueprint> getAllBlueprints() {
-        Set<Blueprint> allBlueprints = new HashSet<>();
-        for (Blueprint b : blueprints.values()) {
-            allBlueprints.add(b);
-        }
-        return allBlueprints;
+        Set<Blueprint> blueprintsCall = new HashSet<>();
+        blueprintsCall.addAll(blueprints.values());
+        return blueprintsCall;
     }
+
 
 
 }

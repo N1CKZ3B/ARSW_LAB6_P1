@@ -10,25 +10,26 @@ import java.util.Objects;
 public class Blueprint {
 
     private String author=null;
-    
+
     private List<Point> points=null;
-    
+
     private String name=null;
-            
+
     public Blueprint(String author,String name,Point[] pnts){
         this.author=author;
         this.name=name;
         points=Arrays.asList(pnts);
     }
-         
+
     public Blueprint(String author, String name){
         this.name=name;
+        this.author = author;
         points=new ArrayList<>();
     }
 
     public Blueprint() {
-    }    
-    
+    }
+
     public String getName() {
         return name;
     }
@@ -36,13 +37,25 @@ public class Blueprint {
     public String getAuthor() {
         return author;
     }
-    
+
     public List<Point> getPoints() {
         return points;
     }
-    
+
     public void addPoint(Point p){
         this.points.add(p);
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -82,21 +95,10 @@ public class Blueprint {
                 return false;
             }
         }
-        
+
         return true;
     }
 
-    public void setPoints(List<Point> points) {
-        this.points = points;
-    }
 
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
