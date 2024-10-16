@@ -1,9 +1,16 @@
 ### Escuela Colombiana de Ingeniería
 ### Arquiecturas de Software
 
-## Construción de un cliente 'grueso' con un API REST, HTML5, Javascript y CSS3. Parte I.
+## Construcción de un cliente 'grueso' con un API REST, HTML5, Javascript y CSS3. Parte I.
 
 ### Trabajo individual o en parejas. A quienes tuvieron malos resultados en el parcial anterior se les recomienda hacerlo individualmente.
+
+--------------------------------------------------------------------------------
+## Realizado Por:
+* Nicolas Sebastián Achuri Macias
+* Ricardo Andrés Villamizar Mendez
+----------------------------------------------------------------------------------
+
 
 ![](img/mock.png)
 
@@ -37,6 +44,11 @@
 
     ```
 
+    ![image](https://github.com/user-attachments/assets/42b03367-d296-433f-9665-68c2e613a78c)
+
+   Se adapta debido a un problema con el versionamiento, se opta por este para poder ejecutar de mejor manera lo requerido
+
+
 ## Front-End - Vistas
 
 1. Cree el directorio donde residirá la aplicación JavaScript. Como se está usando SpringBoot, la ruta para poner en el mismo contenido estático (páginas Web estáticas, aplicaciones HTML5/JS, etc) es:  
@@ -46,6 +58,8 @@
     ```
 
 4. Cree, en el directorio anterior, la página index.html, sólo con lo básico: título, campo para la captura del autor, botón de 'Get blueprints', campo <div> donde se mostrará el nombre del autor seleccionado, [la tabla HTML](https://www.w3schools.com/html/html_tables.asp) donde se mostrará el listado de planos (con sólo los encabezados), y un campo <div> donde se mostrará el total de puntos de los planos del autor. Recuerde asociarle identificadores a dichos componentes para facilitar su búsqueda mediante selectores.
+
+Se crea satisfactoriamente y se adapta para poderlo correr con el localhost:8080
 
 5. En el elemento \<head\> de la página, agregue las referencia a las librerías de jQuery, Bootstrap y a la hoja de estilos de Bootstrap. 
     ```html
@@ -68,6 +82,14 @@
     http://localhost:8080/index.html
     ```
     2. Al abrir la consola de desarrollador del navegador, NO deben aparecer mensajes de error 404 (es decir, que las librerías de JavaScript se cargaron correctamente).
+  
+       ![image](https://github.com/user-attachments/assets/78ac404d-bc46-4bfb-8456-e22076f20962)
+
+       ![image](https://github.com/user-attachments/assets/3e3bd589-3fc8-402a-b2ed-fd33e137a78c)
+
+       ![image](https://github.com/user-attachments/assets/93d60c9d-aa0d-4301-96b7-5fce98de45eb)
+
+
 
 ## Front-End - Lógica
 
@@ -87,6 +109,8 @@
 
     Junto con una operación pública que permita cambiar el nombre del autor actualmente seleccionado.
 
+    ![image](https://github.com/user-attachments/assets/28ca2a9b-49bc-48bd-b73d-ecf14aa668b3)
+
 
 4. Agregue al módulo 'app.js' una operación pública que permita actualizar el listado de los planos, a partir del nombre de su autor (dado como parámetro). Para hacer esto, dicha operación debe invocar la operación 'getBlueprintsByAuthor' del módulo 'apimock' provisto, enviándole como _callback_ una función que:
 
@@ -95,10 +119,21 @@
     * Sobre el listado resultante, haga otro 'map', que tome cada uno de estos elementos, y a través de jQuery agregue un elemento \<tr\> (con los respectvos \<td\>) a la tabla creada en el punto 4. Tenga en cuenta los [selectores de jQuery](https://www.w3schools.com/JQuery/jquery_ref_selectors.asp) y [los tutoriales disponibles en línea](https://www.tutorialrepublic.com/codelab.php?topic=faq&file=jquery-append-and-remove-table-row-dynamically). Por ahora no agregue botones a las filas generadas.
 
     * Sobre cualquiera de los dos listados (el original, o el transformado mediante 'map'), aplique un 'reduce' que calcule el número de puntos. Con este valor, use jQuery para actualizar el campo correspondiente dentro del DOM.
+  
+      ![image](https://github.com/user-attachments/assets/fff964a5-60e1-42bb-82ca-5230a4e727ef)
+
+      
+
+
 
 5. Asocie la operación antes creada (la de app.js) al evento 'on-click' del botón de consulta de la página.
 
-6. Verifique el funcionamiento de la aplicación. Inicie el servidor, abra la aplicación HTML5/JavaScript, y rectifique que al ingresar un usuario existente, se cargue el listado del mismo.
+    ![image](https://github.com/user-attachments/assets/08e35f02-838e-4585-8359-1c501d4cabc5)
+   
+7. Verifique el funcionamiento de la aplicación. Inicie el servidor, abra la aplicación HTML5/JavaScript, y rectifique que al ingresar un usuario existente, se cargue el listado del mismo.
+
+   ![image](https://github.com/user-attachments/assets/bc6dcac2-8aaa-40db-8940-60799593a1d9)
+
 
 ## Para la próxima semana
 
